@@ -12,6 +12,8 @@
 
         <!--=============== CSS ===============-->
         <link rel="stylesheet" href="assets/css/styles.css">
+        <!--=============== JQUERY CSS ===============-->
+        <link rel="stylesheet" href="assets/css/jquery.floating-social-share.css">
 
         <title>Responsive plants website - Bedimcode</title>
     </head>
@@ -99,7 +101,7 @@
                             </p>
                         </div>
 
-                        <a href="#" class="button--link button--flex">
+                        <a href="#products" class="button--link button--flex">
                             Shop Now <i class="ri-arrow-right-down-line button__icon"></i>
                         </a>
                     </div>
@@ -121,6 +123,13 @@
                     Here are some selected plants from our showroom, all are in excellent 
                     shape and has a long life span. Buy and enjoy best quality.
                 </p>
+
+                <div class="cart">
+                    <h2>Shopping Cart</h2>
+                    <ul id="cartList"></ul>
+                    <p>Total: $<span id="totalPrice">0.00</span></p>
+                    <button id="resetCartButton">Reset Cart</button>
+                </div>
                 
             </section>
 
@@ -152,9 +161,9 @@
                     <h3 class="footer__title">Our Address</h3>
 
                     <ul class="footer__data">
-                        <li class="footer__information">1234 - Peru</li>
-                        <li class="footer__information">La Libertad - 43210</li>
-                        <li class="footer__information">123-456-789</li>
+                        <li class="footer__information">1234 - Serbia</li>
+                        <li class="footer__information">Ub - 14210</li>
+                        <li class="footer__information"><a href="#" class="dokumentacija">Dokumentacija</li>
                     </ul>
                 </div>
 
@@ -162,7 +171,7 @@
                     <h3 class="footer__title">Contact Us</h3>
 
                     <ul class="footer__data">
-                        <li class="footer__information">+999 888 777</li>
+                        <li class="footer__information">+380 130 9444</li>
                         
                         <div class="footer__social">
                             <a href="https://www.facebook.com/" class="footer__social-link">
@@ -201,8 +210,12 @@
 
         <!--=============== SCROLL REVEAL ===============-->
         <script src="assets/js/scrollreveal.min.js"></script>
+
+        <script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/jquery.floating-social-share.js"></script>
         
         <!--=============== MAIN JS ===============-->
         <script src="assets/js/main.js"></script>
+
     </body>
 </html>

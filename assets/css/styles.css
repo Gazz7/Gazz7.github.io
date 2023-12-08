@@ -717,6 +717,11 @@ the website, in dark theme
   z-index: 10;
 }
 
+
+.radioB{
+  width: 10px;
+}
+
 /*=============== FOOTER ===============*/
 .footer__container{
   row-gap: 3rem;

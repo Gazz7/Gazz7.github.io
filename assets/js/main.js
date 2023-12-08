@@ -1,145 +1,3 @@
-/*=============== SHOW MENU ===============*/
-const navMenu = document.getElementById('nav-menu'),
-      navToggle = document.getElementById('nav-toggle'),
-      navClose = document.getElementById('nav-close')
-
-/*===== MENU SHOW =====*/
-/* Validate if constant exists */
-if(navToggle){
-    navToggle.addEventListener('click', () =>{
-        navMenu.classList.add('show-menu')
-    })
-}
-
-/*===== MENU HIDDEN =====*/
-/* Validate if constant exists */
-if(navClose){
-    navClose.addEventListener('click', () =>{
-        navMenu.classList.remove('show-menu')
-    })
-}
-
-/*=============== REMOVE MENU MOBILE ===============*/
-const navLink = document.querySelectorAll('.nav__link')
-
-function linkAction(){
-    const navMenu = document.getElementById('nav-menu')
-    // When we click on each nav__link, we remove the show-menu class
-    navMenu.classList.remove('show-menu')
-}
-navLink.forEach(n => n.addEventListener('click', linkAction))
-
-/*=============== CHANGE BACKGROUND HEADER ===============*/
-function scrollHeader(){
-    const header = document.getElementById('header')
-    // When the scroll is greater than 80 viewport height, add the scroll-header class to the header tag
-    if(this.scrollY >= 80) header.classList.add('scroll-header'); else header.classList.remove('scroll-header')
-}
-window.addEventListener('scroll', scrollHeader)
-
-/*=============== QUESTIONS ACCORDION ===============*/
-const accordionItems = document.querySelectorAll('.questions__item')
-
-accordionItems.forEach((item) =>{
-    const accordionHeader = item.querySelector('.questions__header')
-
-    accordionHeader.addEventListener('click', () =>{
-        const openItem = document.querySelector('.accordion-open')
-
-        toggleItem(item)
-
-        if(openItem && openItem!== item){
-            toggleItem(openItem)
-        }
-    })
-})
-
-const toggleItem = (item) =>{
-    const accordionContent = item.querySelector('.questions__content')
-
-    if(item.classList.contains('accordion-open')){
-        accordionContent.removeAttribute('style')
-        item.classList.remove('accordion-open')
-    }else{
-        accordionContent.style.height = accordionContent.scrollHeight + 'px'
-        item.classList.add('accordion-open')
-    }
-
-}
-
-/*=============== SCROLL SECTIONS ACTIVE LINK ===============*/
-const sections = document.querySelectorAll('section[id]')
-
-function scrollActive(){
-    const scrollY = window.pageYOffset
-
-    sections.forEach(current =>{
-        const sectionHeight = current.offsetHeight,
-              sectionTop = current.offsetTop - 58,
-              sectionId = current.getAttribute('id')
-
-        if(scrollY > sectionTop && scrollY <= sectionTop + sectionHeight){
-            document.querySelector('.nav__menu a[href*=' + sectionId + ']').classList.add('active-link')
-        }else{
-            document.querySelector('.nav__menu a[href*=' + sectionId + ']').classList.remove('active-link')
-        }
-    })
-}
-window.addEventListener('scroll', scrollActive)
-
-/*=============== SHOW SCROLL UP ===============*/ 
-function scrollUp(){
-    const scrollUp = document.getElementById('scroll-up');
-    // When the scroll is higher than 400 viewport height, add the show-scroll class to the a tag with the scroll-top class
-    if(this.scrollY >= 400) scrollUp.classList.add('show-scroll'); else scrollUp.classList.remove('show-scroll')
-}
-window.addEventListener('scroll', scrollUp)
-
-/*=============== DARK LIGHT THEME ===============*/ 
-const themeButton = document.getElementById('theme-button')
-const darkTheme = 'dark-theme'
-const iconTheme = 'ri-sun-line'
-
-// Previously selected topic (if user selected)
-const selectedTheme = localStorage.getItem('selected-theme')
-const selectedIcon = localStorage.getItem('selected-icon')
-
-// We obtain the current theme that the interface has by validating the dark-theme class
-const getCurrentTheme = () => document.body.classList.contains(darkTheme) ? 'dark' : 'light'
-const getCurrentIcon = () => themeButton.classList.contains(iconTheme) ? 'ri-moon-line' : 'ri-sun-line'
-
-// We validate if the user previously chose a topic
-if (selectedTheme) {
-  // If the validation is fulfilled, we ask what the issue was to know if we activated or deactivated the dark
-  document.body.classList[selectedTheme === 'dark' ? 'add' : 'remove'](darkTheme)
-  themeButton.classList[selectedIcon === 'ri-moon-line' ? 'add' : 'remove'](iconTheme)
-}
-
-// Activate / deactivate the theme manually with the button
-themeButton.addEventListener('click', () => {
-    // Add or remove the dark / icon theme
-    document.body.classList.toggle(darkTheme)
-    themeButton.classList.toggle(iconTheme)
-    // We save the theme and the current icon that the user chose
-    localStorage.setItem('selected-theme', getCurrentTheme())
-    localStorage.setItem('selected-icon', getCurrentIcon())
-})
-
-/*=============== SCROLL REVEAL ANIMATION ===============*/
-const sr = ScrollReveal({
-    origin: 'top',
-    distance: '60px',
-    duration: 2500,
-    delay: 400,
-    // reset: true
-})
-
-sr.reveal(`.home__data`)
-sr.reveal(`.home__img`, {delay: 500})
-sr.reveal(`.home__social`, {delay: 600})
-sr.reveal(`.about__img, .contact__box`,{origin: 'left'})
-sr.reveal(`.about__data, .contact__form`,{origin: 'right'})
-sr.reveal(`.steps__card, .product__card, .questions__group, .footer`,{interval: 100})
 
 
 // Navigacija - ispis
@@ -566,113 +424,349 @@ function createRadioButton(id, label, value) {
     radioInput.value = value;
 
     const radioLabel = document.createElement('label');
+    radioLabel.classList.add('radioLabel');
     radioLabel.for = id;
     radioLabel.textContent = label;
 
     // Append radio elements to the inputs container
+    
     contactInputs.appendChild(radioInput);
     contactInputs.appendChild(radioLabel);
 }
 
 // FOOTER
 
-// Create footer content dynamically
-contentData.forEach(section => {
-    const content = document.getElementById('footer');
-    content.classList.add('footer__content');
+// FORM VALIDATION
 
-    if (section.logo) {
-        const logoLink = document.createElement('a');
-        logoLink.classList.add('footer__logo');
-        logoLink.innerHTML = '<i class="ri-leaf-line footer__logo-icon"></i> Plantex';
-        content.appendChild(logoLink);
+try {
+    //FORME REG EX
+  
+    let provera = document.querySelector("#provera");
+  
+    provera.addEventListener("click", proveri);
+  
+    function proveri() {
+      //RegEx Ime
+      let firstName = document.querySelector("#fname");
+      let regFirstName = /^[A-ZČĆŽŠĐ][a-zčćžšđ]{2,14}(\s[A-ZČĆŽŠĐ][a-zčćžšđ]{2,14})*$/;
+  
+      if (regFirstName.test(firstName.value)) {
+        firstName.nextElementSibling.classList.add("correct");
+        firstName.nextElementSibling.innerHTML = "Valid entry";
+      } else {
+        firstName.nextElementSibling.classList.remove("correct");
+        firstName.nextElementSibling.classList.add("mistake");
+        firstName.nextElementSibling.innerHTML =
+          "The first letter must be uppercase and the name can only contain letters.";
+      }
+  
+      //RegEx Prezime
+      let lastName = document.querySelector("#lname");
+      let regLastName = /^[A-ZČĆŽŠĐ][a-zčćžšđ]{2,14}(\s[A-ZČĆŽŠĐ][a-zčćžšđ]{2,14})*$/;
+  
+      if (regLastName.test(lastName.value)) {
+        lastName.nextElementSibling.classList.add("correct");
+        lastName.nextElementSibling.innerHTML = "Valid entry";
+      } else {
+        lastName.nextElementSibling.classList.remove("correct");
+        lastName.nextElementSibling.classList.add("mistake");
+        lastName.nextElementSibling.innerHTML =
+          "The first letter must be uppercase and the name can only contain letters.";
+      }
+  
+      //RegEx Email
+      let email = document.querySelector("#email");
+      let regEmail = /^[a-z][\d\w\.]*\@[a-z]{3,}(\.[a-z]{2,4}){1,3}$/;
+  
+      if (regEmail.test(email.value)) {
+        email.nextElementSibling.classList.add("correct");
+        email.nextElementSibling.innerHTML = "Valid entry";
+      } else {
+        email.nextElementSibling.classList.remove("correct");
+        email.nextElementSibling.classList.add("mistake");
+        email.nextElementSibling.innerHTML = `Format:</br>example.example@example.eg`;
+      }
+  
+    }
+  }
+  catch (e) { }
+  
+  try {
+    let logProvera = document.querySelectorAll("#logIn");
+    logProvera[0].addEventListener("click", logProveri);
+    logProvera[1].addEventListener('click', logProveri2)
+  
+    function logProveri() {
+      //USERNAME
+      let uName = document.querySelector("#uName");
+  
+      let regUname = /^[A-Za-z](\d?\.?\w?)*?/;
+  
+  
+      if (regUname.test(uName.value)) {
+        uName.nextElementSibling.classList.add("correct");
+        uName.nextElementSibling.innerHTML = "Valid entry";
+      } else {
+        uName.nextElementSibling.classList.remove("correct");
+        uName.nextElementSibling.classList.add("mistake");
+        uName.nextElementSibling.innerHTML = `Can have uppercase, lowercase and digit`;
+      }
+  
+      //PASSWORD
+      let pass = document.querySelector("#Password");
+  
+      let regPass = /^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})/;
+  
+      if (regPass.test(pass.value)) {
+        pass.nextElementSibling.classList.add("correct");
+        pass.nextElementSibling.innerHTML = "Valid entry";
+      } else {
+        pass.nextElementSibling.classList.remove("correct");
+        pass.nextElementSibling.classList.add("mistake");
+        pass.nextElementSibling.innerHTML = `One uppercase, one lowercase and one digit`;
+      }
+    }
+  
+    function logProveri2() {
+      //USERNAME
+      let uName2 = document.querySelector("#uName2");
+  
+      let regUname = /^[A-Za-z](\d?\.?\w?)*?/;
+  
+  
+  
+      if (regUname.test(uName2.value)) {
+        uName2.nextElementSibling.classList.add("correct");
+        uName2.nextElementSibling.innerHTML = "Valid entry";
+      } else {
+        uName2.nextElementSibling.classList.remove("correct");
+        uName2.nextElementSibling.classList.add("mistake");
+        uName2.nextElementSibling.innerHTML = `Can have uppercase, lowercase and digit`;
+      }
+  
+      //PASSWORD
+      let pass2 = document.querySelector("#Password2");
+  
+      let regPass = /^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})/;
+  
+  
+      if (regPass.test(pass2.value)) {
+        pass2.nextElementSibling.classList.add("correct");
+        pass2.nextElementSibling.innerHTML = "Valid entry";
+      } else {
+        pass2.nextElementSibling.classList.remove("correct");
+        pass2.nextElementSibling.classList.add("mistake");
+        pass2.nextElementSibling.innerHTML = `One uppercase, one lowercase and one digit`;
+      }
+    }
+  }
+  catch (e) { }
+  
+  $("body").floatingSocialShare({
+    buttons: [
+      "facebook", "linkedin", "pinterest", "twitter"
+    ],
+    text: "share with: ",
+    url: "https://github.com/ozdemirburak/jquery-floating-social-share"
+  });
+
+  // CART
+
+  document.addEventListener('DOMContentLoaded', function () {
+    // Cart object to store selected items
+    let cart = [];
+    const cartList = document.getElementById('cartList');
+    const totalPriceElement = document.getElementById('totalPrice');
+    const resetCartButton = document.getElementById('resetCartButton');
+
+    // Function to update the cart and UI
+    function updateCart(product) {
+        cart.push(product);
+        renderCart();
     }
 
-    if (section.title) {
-        const title = document.createElement('h3');
-        title.classList.add('footer__title');
-        title.innerHTML = section.title;
-        content.appendChild(title);
+    // Function to reset the cart
+    function resetCart() {
+        cart = [];
+        renderCart();
     }
 
-    if (section.inputPlaceholder && section.buttonContent) {
-        const subscribeInput = document.createElement('input');
-        subscribeInput.classList.add('footer__input');
-        subscribeInput.type = 'email';
-        subscribeInput.placeholder = section.inputPlaceholder;
+    // Function to render the cart
+    function renderCart() {
+        // Clear the existing cart
+        cartList.innerHTML = '';
 
-        const subscribeButton = document.createElement('button');
-        subscribeButton.classList.add('button', 'button--flex', 'footer__button');
-        subscribeButton.innerHTML = section.buttonContent;
-        subscribeButton.addEventListener('click', () => alert('Subscribe button clicked!'));
+        // Calculate and update the total price
+        const totalPrice = cart.reduce((total, product) => total + product.price, 0);
+        totalPriceElement.textContent = totalPrice.toFixed(2);
 
-        const subscribeDiv = document.createElement('div');
-        subscribeDiv.classList.add('footer__subscribe');
-        subscribeDiv.appendChild(subscribeInput);
-        subscribeDiv.appendChild(subscribeButton);
-
-        content.appendChild(subscribeDiv);
-    }
-
-    if (section.address) {
-        const addressList = document.createElement('ul');
-        addressList.classList.add('footer__data');
-        section.address.forEach(info => {
+        // Render each item in the cart
+        cart.forEach(product => {
             const listItem = document.createElement('li');
-            listItem.classList.add('footer__information');
-            listItem.innerHTML = info;
-            addressList.appendChild(listItem);
+            listItem.textContent = `${product.title} - $${product.price.toFixed(2)}`;
+            cartList.appendChild(listItem);
         });
-        content.appendChild(addressList);
     }
 
-    if (section.contact) {
-        const contactList = document.createElement('ul');
-        contactList.classList.add('footer__data');
-        section.contact.forEach(info => {
-            const listItem = document.createElement('li');
-            listItem.classList.add('footer__information');
-            listItem.innerHTML = info;
-            contactList.appendChild(listItem);
-        });
-
-        if (section.socialLinks) {
-            const socialDiv = document.createElement('div');
-            socialDiv.classList.add('footer__social');
-            section.socialLinks.forEach(link => {
-                const socialLink = document.createElement('a');
-                socialLink.classList.add('footer__social-link');
-                socialLink.innerHTML = `<i class="${link.icon}"></i>`;
-                socialLink.href = link.link;
-                socialLink.target = '_blank';
-                socialDiv.appendChild(socialLink);
-            });
-
-            contactList.appendChild(socialDiv);
-        }
-
-        content.appendChild(contactList);
+    // Function to handle button click
+    function handleButtonClick(product) {
+        updateCart(product);
     }
 
-    if (section.creditCards) {
-        const cardsDiv = document.createElement('div');
-        cardsDiv.classList.add('footer__cards');
-        section.creditCards.forEach(card => {
-            const cardImg = document.createElement('img');
-            cardImg.classList.add('footer__card');
-            cardImg.src = `assets/img/${card}`;
-            cardImg.alt = '';
-            cardsDiv.appendChild(cardImg);
-        });
+    // Attach click event listeners to each "Add to Cart" button
+    const addToCartButtons = document.querySelectorAll('.product__button');
+    addToCartButtons.forEach((button, index) => {
+        const product = {
+            title: document.querySelectorAll('.product__title')[index].textContent,
+            price: parseFloat(document.querySelectorAll('.product__price')[index].textContent.slice(1))
+        };
 
-        content.appendChild(cardsDiv);
-    }
+        button.addEventListener('click', () => handleButtonClick(product));
+    });
 
-    footerContainer.appendChild(content);
+    // Attach click event listener to the "Reset Cart" button
+    resetCartButton.addEventListener('click', resetCart);
 });
 
-// Create footer element and append it to the body
-const footer = document.createElement('footer');
-footer.classList.add('footer', 'section');
-footer.id = 'footer';
-footer.appendChild(footerContainer);
+/*=============== SHOW MENU ===============*/
+const navMenu = document.getElementById('nav-menu'),
+      navToggle = document.getElementById('nav-toggle'),
+      navClose = document.getElementById('nav-close')
+
+/*===== MENU SHOW =====*/
+/* Validate if constant exists */
+if(navToggle){
+    navToggle.addEventListener('click', () =>{
+        navMenu.classList.add('show-menu')
+    })
+}
+
+/*===== MENU HIDDEN =====*/
+/* Validate if constant exists */
+if(navClose){
+    navClose.addEventListener('click', () =>{
+        navMenu.classList.remove('show-menu')
+    })
+}
+
+/*=============== REMOVE MENU MOBILE ===============*/
+const navLink = document.querySelectorAll('.nav__link')
+
+function linkAction(){
+    const navMenu = document.getElementById('nav-menu')
+    // When we click on each nav__link, we remove the show-menu class
+    navMenu.classList.remove('show-menu')
+}
+navLink.forEach(n => n.addEventListener('click', linkAction))
+
+/*=============== CHANGE BACKGROUND HEADER ===============*/
+function scrollHeader(){
+    const header = document.getElementById('header')
+    // When the scroll is greater than 80 viewport height, add the scroll-header class to the header tag
+    if(this.scrollY >= 80) header.classList.add('scroll-header'); else header.classList.remove('scroll-header')
+}
+window.addEventListener('scroll', scrollHeader)
+
+/*=============== QUESTIONS ACCORDION ===============*/
+const accordionItems = document.querySelectorAll('.questions__item')
+
+accordionItems.forEach((item) =>{
+    const accordionHeader = item.querySelector('.questions__header')
+
+    accordionHeader.addEventListener('click', () =>{
+        const openItem = document.querySelector('.accordion-open')
+
+        toggleItem(item)
+
+        if(openItem && openItem!== item){
+            toggleItem(openItem)
+        }
+    })
+})
+
+const toggleItem = (item) =>{
+    const accordionContent = item.querySelector('.questions__content')
+
+    if(item.classList.contains('accordion-open')){
+        accordionContent.removeAttribute('style')
+        item.classList.remove('accordion-open')
+    }else{
+        accordionContent.style.height = accordionContent.scrollHeight + 'px'
+        item.classList.add('accordion-open')
+    }
+
+}
+
+/*=============== SCROLL SECTIONS ACTIVE LINK ===============*/
+const sections = document.querySelectorAll('section[id]')
+
+function scrollActive(){
+    const scrollY = window.pageYOffset
+
+    sections.forEach(current =>{
+        const sectionHeight = current.offsetHeight,
+              sectionTop = current.offsetTop - 58,
+              sectionId = current.getAttribute('id')
+
+        if(scrollY > sectionTop && scrollY <= sectionTop + sectionHeight){
+            document.querySelector('.nav__menu a[href*=' + sectionId + ']').classList.add('active-link')
+        }else{
+            document.querySelector('.nav__menu a[href*=' + sectionId + ']').classList.remove('active-link')
+        }
+    })
+}
+window.addEventListener('scroll', scrollActive)
+
+/*=============== SHOW SCROLL UP ===============*/ 
+function scrollUp(){
+    const scrollUp = document.getElementById('scroll-up');
+    // When the scroll is higher than 400 viewport height, add the show-scroll class to the a tag with the scroll-top class
+    if(this.scrollY >= 400) scrollUp.classList.add('show-scroll'); else scrollUp.classList.remove('show-scroll')
+}
+window.addEventListener('scroll', scrollUp)
+
+/*=============== DARK LIGHT THEME ===============*/ 
+const themeButton = document.getElementById('theme-button')
+const darkTheme = 'dark-theme'
+const iconTheme = 'ri-sun-line'
+
+// Previously selected topic (if user selected)
+const selectedTheme = localStorage.getItem('selected-theme')
+const selectedIcon = localStorage.getItem('selected-icon')
+
+// We obtain the current theme that the interface has by validating the dark-theme class
+const getCurrentTheme = () => document.body.classList.contains(darkTheme) ? 'dark' : 'light'
+const getCurrentIcon = () => themeButton.classList.contains(iconTheme) ? 'ri-moon-line' : 'ri-sun-line'
+
+// We validate if the user previously chose a topic
+if (selectedTheme) {
+  // If the validation is fulfilled, we ask what the issue was to know if we activated or deactivated the dark
+  document.body.classList[selectedTheme === 'dark' ? 'add' : 'remove'](darkTheme)
+  themeButton.classList[selectedIcon === 'ri-moon-line' ? 'add' : 'remove'](iconTheme)
+}
+
+// Activate / deactivate the theme manually with the button
+themeButton.addEventListener('click', () => {
+    // Add or remove the dark / icon theme
+    document.body.classList.toggle(darkTheme)
+    themeButton.classList.toggle(iconTheme)
+    // We save the theme and the current icon that the user chosef
+    localStorage.setItem('selected-theme', getCurrentTheme())
+    localStorage.setItem('selected-icon', getCurrentIcon())
+})
+
+/*=============== SCROLL REVEAL ANIMATION ===============*/
+const sr = ScrollReveal({
+    origin: 'top',
+    distance: '60px',
+    duration: 2500,
+    delay: 400,
+    // reset: true
+})
+
+sr.reveal(`.home__data`)
+sr.reveal(`.home__img`, {delay: 500})
+sr.reveal(`.home__social`, {delay: 600})
+sr.reveal(`.about__img, .contact__box`,{origin: 'left'})
+sr.reveal(`.about__data, .contact__form`,{origin: 'right'})
+sr.reveal(`.steps__card, .product__card, .questions__group, .footer`,{interval: 100})
