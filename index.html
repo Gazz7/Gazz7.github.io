@@ -3,24 +3,25 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-       
+        <meta name="description" content="Explore a variety of plants and gardening tips on Plantex - Your Ultimate Plant Companion.">
+        <meta name="keywords" content="plants, gardening, flowers, indoor plants, outdoor plants, plant care">
+        <meta name="author" content="Nikola Vujetic">
         <!--=============== FAVICON ===============-->
         <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
 
         <!--=============== REMIX ICONS ===============-->
         <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-
         <!--=============== CSS ===============-->
         <link rel="stylesheet" href="assets/css/styles.css">
         <!--=============== JQUERY CSS ===============-->
         <link rel="stylesheet" href="assets/css/jquery.floating-social-share.css">
 
-        <title>Responsive plants website - Bedimcode</title>
+        <title>Plantex - Plants will make your life better</title>
     </head>
     <body>
         <!--==================== HEADER ====================-->
         <header class="header" id="header">
-            <nav class="nav container">
+            <nav class="nav container" id="navM">
                 <a href="#" class="nav__logo">
                     <i class="ri-leaf-line nav__logo-icon"></i> Plantex
                 </a>
@@ -148,22 +149,34 @@
         </main>
 
         <!--==================== FOOTER ====================-->
-        <footer class="footer section" id="footer">
+        <footer class="footer section" id="htmlFooter">
             <div class="footer__container container grid">
                 <div class="footer__content">
                     <a href="#" class="footer__logo">
                         <i class="ri-leaf-line footer__logo-icon"></i> Plantex
                     </a>
+                    <h3 class="footer__title">
+                        Subscribe to our newsletter <br> to stay update
+                    </h3>
 
+                    <div class="footer__subscribe">
+                        <input type="email" id="emailInput" placeholder="Enter your email" class="footer__input">
+
+                        <button id="subscribeButton" class="button button--flex footer__button">
+                            Subscribe
+                            <i class="ri-arrow-right-up-line button__icon"></i>
+                        </button>                      
+                    </div>
+                    <div id="message"></div>
                 </div>
 
                 <div class="footer__content">
                     <h3 class="footer__title">Our Address</h3>
 
                     <ul class="footer__data">
-                        <li class="footer__information">1234 - Serbia</li>
+                        <li class="footer__information">Serbia</li>
                         <li class="footer__information">Ub - 14210</li>
-                        <li class="footer__information"><a href="#" class="dokumentacija">Dokumentacija</li>
+                        <li class="footer__information"><a href="assets/dokumentacija.docx" class="footer__social-link">Documentation</a></li>
                     </ul>
                 </div>
 
@@ -171,17 +184,17 @@
                     <h3 class="footer__title">Contact Us</h3>
 
                     <ul class="footer__data">
-                        <li class="footer__information">+380 130 9444</li>
+                        <li class="footer__information">+381 130 9495</li>
                         
                         <div class="footer__social">
-                            <a href="https://www.facebook.com/" class="footer__social-link">
+                            <a href="https://www.facebook.com/profile.php?id=100017969461650" class="footer__social-link">
                                 <i class="ri-facebook-fill"></i>
                             </a>
-                            <a href="https://www.instagram.com/" class="footer__social-link">
+                            <a href="https://www.instagram.com/nikola_vujetic_/" class="footer__social-link">
                                 <i class="ri-instagram-line"></i>
                             </a>
-                            <a href="https://twitter.com/" class="footer__social-link">
-                                <i class="ri-twitter-fill"></i>
+                            <a href="https://wa.me/0601309495" class="footer__social-link">
+                                <i class="ri-whatsapp-line"></i>
                             </a>
                         </div>
                     </ul>
@@ -200,10 +213,10 @@
                     </div>
                 </div>
             </div>
-          
+            <p class="footer__copy">&#169; Nikola Vujetić. All rigths reserved</p>
         </footer>
         
-        <!--=============== SCROLL UP ===============   <p class="footer__copy">&#169; Nikola Vujetic. All rigths reserved</p>-->
+        <!--=============== SCROLL UP ===============   -->
         <a href="#" class="scrollup" id="scroll-up"> 
             <i class="ri-arrow-up-fill scrollup__icon"></i>
         </a>

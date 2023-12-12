@@ -717,9 +717,15 @@ the website, in dark theme
   z-index: 10;
 }
 
-
 .radioB{
-  width: 10px;
+  width: 4%;
+}
+.radioLabel{
+  margin-left: 2%;
+}
+.rDiv{
+  display:inline-flex;
+  align-items: center;
 }
 
 /*=============== FOOTER ===============*/
@@ -1066,4 +1072,94 @@ the website, in dark theme
   .scrollup{
     right: 3rem;
   }
+}
+
+/* author */
+
+#wrapper-aboutus{
+	text-align: center;
+	height: 800px;
+	width: 80%;
+	margin: 0 auto;
+	color: #1a1a1d;
+	padding-top: 9%;
+}
+#profile-picture{
+	width: 24%;
+	height: 400px;
+	margin-left: 15%;
+  margin-top: 5%;
+	background-color: #1a1a1d;
+	border: 2px solid #191919;
+	box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+#description{
+	width: 35%;
+	position: relative;
+	font-size: 18px;
+	text-align: justify;
+  top: -400px;
+	right: -55%;
+}
+.white{
+	background-color: #dfe2db;
+}	
+#profile-picture img{
+	width: 100%;
+	height: 100%;
+}
+#border{
+	width: 100px;
+	height: 10px;
+	margin: 30px auto;
+	background-color: hsl(var(--hue), 24%, 32%);
+}
+
+.correct{
+	margin-bottom: 10px;
+		color: #7bc043;
+}
+.mistake{
+	margin-bottom: 10px;
+		color: #ee4035;
+		font-size: .9em;
+}
+
+#rDiv{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: inline-flex;
+}
+
+input[type='radio']:after {
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+  top: -2px;
+  left: -1px;
+  position: relative;
+  background-color: #d1d3d1;
+  content: '';
+  display: inline-block;
+  visibility: visible;
+  border: 2px solid white;
+}
+input[type='radio']:checked:after {
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+  top: -2px;
+  left: -1px;
+  position: relative;
+  background-color: hsl(var(--hue), 24%, 32%);
+  content: '';
+  display: inline-block;
+  visibility: visible;
+  border: 2px solid white;
+}
+#message {
+  padding-bottom: 2rem;
+  opacity: 1;
+  transition: opacity 0.5s ease-out; 
 }
