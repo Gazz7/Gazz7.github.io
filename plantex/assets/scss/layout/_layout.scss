@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*=============== REUSABLE CSS CLASSES ===============*/
 .section{
     padding: 5.5rem 0 1rem;
@@ -25,4 +26,33 @@
 
 .main{
     overflow: hidden; // For animation
+=======
+/*=============== REUSABLE CSS CLASSES ===============*/
+.section{
+    padding: 5.5rem 0 1rem;
+
+    &__title, &__title-center{
+        font-size: var(--h2-font-size);
+        margin-bottom: var(--mb-2);
+        line-height: 140%;
+        
+        &-center{
+            text-align: center;
+        }
+    }
+}
+
+.container{
+    max-width: 968px;
+    margin-left: var(--mb-1-5);
+    margin-right: var(--mb-1-5);
+}
+
+.grid{
+    display: grid;
+}
+
+.main{
+    overflow: hidden; // For animation
+>>>>>>> 77f09aa5fd67835e768810601ed3c99039894549
 }
