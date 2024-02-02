@@ -2,12 +2,12 @@
 
     // Data for navigation items
     const navData = [
-      { text: "Home", link: "#home", active: true },
-      { text: "About", link: "#about", active: false },
-      { text: "Products", link: "#products", active: false },
-      { text: "FAQs", link: "#faqs", active: false },
-      { text: "Contact Us", link: "#contact", active: false },
-      { text: "Author", link: "author.html", active: false }
+      { text: "Home", id: "homeH", link: "#home", active: true },
+      { text: "About", id: "aboutA", link: "#about", active: false },
+      { text: "Products", id: "productsP", link: "#products", active: false },
+      { text: "FAQs", id: "faqsF", link: "#faqs", active: false },
+      { text: "Contact Us", id: "contactC", link: "#contact", active: false },
+      { text: "Author", id: "authorA", link: "author.html", active: false }
   ];
 
   // Create the navigation list dynamically
@@ -18,8 +18,9 @@
       const navItem = document.createElement("li");
       navItem.classList.add("nav__item");
 
-      const navLink = document.createElement("a");
+      let navLink = document.createElement("a");
       navLink.href = item.link;
+      navLink.id = item.id;
       navLink.classList.add("nav__link");
       if (item.active) {
           navLink.classList.add("active-link");
@@ -332,7 +333,6 @@ const sendButton = document.createElement('button');
 sendButton.classList.add('button', 'button--flex',);
 sendButton.id = "buttonS";
  
-
 const sendButtonText = document.createTextNode('Send Message');
 const sendButtonIcon = document.createElement('i');
 sendButtonIcon.classList.add('ri-arrow-right-up-line', 'button__icon');
@@ -432,6 +432,93 @@ function createRadioButton(id, label, value) {
   contactInputs.appendChild(radioDiv);
 }
 
+//send
+let isMessageDisplayed = false;
+
+sendButton.addEventListener('click', function() {
+  let firstName = document.querySelector("#fname");
+  let regFirstName = /^[A-ZČĆŽŠĐ][a-zčćžšđ]{2,14}(\s[A-ZČĆŽŠĐ][a-zčćžšđ]{2,14})*$/;
+  let lastName = document.querySelector("#lname");
+  let regLastName = /^[A-ZČĆŽŠĐ][a-zčćžšđ]{2,14}(\s[A-ZČĆŽŠĐ][a-zčćžšđ]{2,14})*$/;
+  let email = document.querySelector("#email");
+  let regEmail = /^[a-z][\d\w\.]*\@[a-z]{3,}(\.[a-z]{2,4}){1,3}$/;
+  const maleRadioButton = document.querySelector('input[name="gender"][value="male"]');
+  const femaleRadioButton = document.querySelector('input[name="gender"][value="female"]');
+  // Check if a message is already displayed
+    if(!isMessageDisplayed){
+      // Perform any necessary actions here, such as sending a message
+      if ((regEmail.test(email.value))&&(regFirstName.test(firstName.value))&&(regLastName.test(lastName.value))&&(maleRadioButton.checked || femaleRadioButton.checked)){
+      // Display the success message with a delay
+      setTimeout(function() {
+          // Display the success message
+          const successMessage = document.createElement('p');
+          successMessage.textContent = 'Message sent successfully! Please wait for our response.';
+          successMessage.classList.add("correct");
+          successMessage.style.fontWeight = 'bold';
+          successMessage.style.fontSize = '18px';
+          successMessage.style.transition = 'opacity 1s ease-in-out'; // CSS transition for fade effect
+          successMessage.style.marginTop = '20px';
+
+          // Append the success message to the document body (or any other desired element)
+          contactForm.appendChild(successMessage);
+
+
+          // Triggering a reflow to apply the initial opacity setting
+          void successMessage.offsetWidth;
+
+          // Set opacity to 1 to trigger the fade-in effect
+          successMessage.style.opacity = '1';
+
+          // You can remove the success message after a certain duration if needed
+          setTimeout(function() {
+              // Set opacity to 0 to trigger the fade-out effect
+              successMessage.style.opacity = '0';
+              
+              // Remove the success message after the fade-out effect completes
+              setTimeout(function() {
+                  successMessage.remove();
+                  isMessageDisplayed = false; // Reset the flag after removing the message
+              }, 1000); 
+          }, 3000); 
+
+          isMessageDisplayed = true; // Set the flag to true when the message is displayed
+      }, 500); // Display after 1 second (adjust as needed)
+    } else setTimeout(function() {
+      // Display the success message
+      const successMessage = document.createElement('p');
+      successMessage.textContent = 'The form is not filled in correctly, check the format that is provided!';
+      successMessage.classList.add("mistake");
+      successMessage.style.fontWeight = 'bold';
+      successMessage.style.fontSize = '18px';
+      successMessage.style.transition = 'opacity 1s ease-in-out'; // CSS transition for fade effect
+      successMessage.style.marginTop = '20px';
+
+      // Append the success message to the document body (or any other desired element)
+      contactForm.appendChild(successMessage);
+
+
+      // Triggering a reflow to apply the initial opacity setting
+      void successMessage.offsetWidth;
+
+      // Set opacity to 1 to trigger the fade-in effect
+      successMessage.style.opacity = '1';
+
+      // You can remove the success message after a certain duration if needed
+      setTimeout(function() {
+          // Set opacity to 0 to trigger the fade-out effect
+          successMessage.style.opacity = '0';
+          
+          // Remove the success message after the fade-out effect completes
+          setTimeout(function() {
+              successMessage.remove();
+              isMessageDisplayed = false; // Reset the flag after removing the message
+          }, 1000); 
+      }, 3000); 
+
+      isMessageDisplayed = true; // Set the flag to true when the message is displayed
+  }, 500); // Display after 1 second (adjust as needed)
+}
+});
 // SUBSCRIBE BUTTON validation
 function validateSubscribe() {
   const emailInput = document.getElementById('emailInput');
@@ -470,7 +557,6 @@ const subscribeButton = document.getElementById('subscribeButton');
 subscribeButton.addEventListener('click', validateSubscribe);
 
 document.getElementById('buttonS').addEventListener('click', function(event) {
-  // Prevent the default form submission
   event.preventDefault();
 
 
@@ -729,7 +815,29 @@ try {
       }
     });
   }
+  //Radio
+  let falseMessageRadioDisplayed = false;
+  sendButton.addEventListener('click', function() {
+    const maleRadioButton = document.querySelector('input[name="gender"][value="male"]');
+  const femaleRadioButton = document.querySelector('input[name="gender"][value="female"]');
+  if (!(maleRadioButton.checked || femaleRadioButton.checked)&& !falseMessageRadioDisplayed){
+    const falseMessageRadio = document.createElement('p');
+      falseMessageRadio.textContent = 'Choose gender!';
+      falseMessageRadio.classList.add("mistake");
+      contactInputs.appendChild(falseMessageRadio);
+
+      falseMessageRadioDisplayed = true;
+
+      setTimeout(function() {
+        falseMessageRadio.remove();
+        falseMessageRadioDisplayed = false;
+    }, 3000); // Remove after 3 seconds (adjust as needed)
+  }
+  });
+  
 } catch (e) {}
+
+
 
 $("body").floatingSocialShare({
   buttons: [
@@ -867,24 +975,25 @@ const toggleItem = (item) =>{
 }
 
 /*=============== SCROLL SECTIONS ACTIVE LINK ===============*/
-const sections = document.querySelectorAll('section[id]')
+const sections = document.querySelectorAll('section[id]');
+window.addEventListener('scroll', scrollActive);
+function scrollActive() {
+  const scrollY = window.scrollY;
 
-function scrollActive(){
-  const scrollY = window.pageYOffset;
+  sections.forEach((current) => {
+    const sectionHeight = current.offsetHeight,
+      sectionTop = current.offsetTop - 58,
+      sectionId = current.getAttribute('id');
 
-  sections.forEach(current =>{
-      const sectionHeight = current.offsetHeight,
-            sectionTop = current.offsetTop - 58,
-            sectionId = current.getAttribute('id')
-
-      if(scrollY > sectionTop && scrollY <= sectionTop + sectionHeight){
-          document.querySelector('.nav__menu a[href*=' + sectionId + ']').classList.add('active-link')
-      }else{
-          document.querySelector('.nav__menu a[href*=' + sectionId + ']').classList.remove('active-link')
-      }
-  })
+    if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+      document.querySelector('.nav__list a[href*=' + sectionId + ']').classList.add('active-link');
+    } else {
+      document.querySelector('.nav__list a[href*=' + sectionId + ']').classList.remove('active-link');
+    }
+  });
 }
-window.addEventListener('scroll', scrollActive)
+
+
 
 /*=============== SHOW SCROLL UP ===============*/ 
 function scrollUp(){
