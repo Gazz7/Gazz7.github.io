@@ -186,7 +186,6 @@ productsData.forEach(product => {
 // Append elements to the body
 productSection.appendChild(productContainer);
 
-
 // FAQ
 
 const faqsData = [
